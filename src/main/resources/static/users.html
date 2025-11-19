@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CRUD Usuários — Endividamento</title>
+    <style>
+        body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:24px;color:#222}
+        h1{font-size:20px;margin-bottom:8px}
+        table{border-collapse:collapse;width:100%;margin-top:12px}
+        th,td{border:1px solid #ddd;padding:8px;text-align:left}
+        th{background:#f4f4f4}
+        input,button,select,textarea{padding:6px;margin:4px 0}
+        .row{display:flex;gap:8px;flex-wrap:wrap}
+        .card{border:1px solid #e6e6e6;padding:12px;border-radius:6px;margin-top:12px}
+        .actions button{margin-right:6px}
+        .small{font-size:13px;color:#555}
+        pre{background:#111;color:#0f0;padding:8px;border-radius:6px;overflow:auto}
+        .list-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-items:center}
+        .mini{font-size:12px;padding:4px 6px}
+    </style>
+</head>
+<body>
+<h1>CRUD — Usuários</h1>
+
+<div class="card">
+    <strong>Novo / Editar usuário</strong>
+    <div class="row" style="align-items:center;">
+        <input id="name" placeholder="Nome" />
+        <input id="email" placeholder="Email" />
+        <input id="passwordHash" placeholder="Password (hash opcional)" />
+        <button id="saveBtn">Salvar</button>
+        <button id="resetBtn">Limpar</button>
+    </div>
+    <div class="small">Selecione uma linha na tabela para editar. Ao criar, adicione incomes / expenses / debts abaixo.</div>
+</div>
+
+<!-- Incomes -->
+<div class="card">
+    <strong>Incomes (entradas mensais)</strong>
+    <div id="incomesContainer"></div>
+    <div style="margin-top:6px">
+        <button id="addIncome" class="mini">+ Adicionar income</button>
+    </div>
+</div>
+
+<!-- Expenses -->
+<div class="card">
+    <strong>Expenses (despesas mensais)</strong>
+    <div id="expensesContainer"></div>
+    <div style="margin-top:6px">
+        <button id="addExpense" class="mini">+ Adicionar expense</button>
+    </div>
+</div>
+
+<!-- Debts -->
+<div class="card">
+    <strong>Debts (dívidas)</strong>
+    <div id="debtsContainer"></div>
+    <div style="margin-top:6px">
+        <button id="addDebt" class="mini">+ Adicionar debt</button>
+    </div>
+</div>
+
+<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong>Lista de usuários</strong>
+        <div>
+            <button id="refreshBtn">Atualizar</button>
+            <button id="createSample">Criar exemplo</button>
+        </div>
+    </div>
+
+    <table id="usersTable">
+        <thead>
+        <tr>
+            <th>ID</th><th>Nome</th><th>Email</th><th>CriadoEm</th><th>Ações</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="card">
+    <strong>Summary (plano de quitação)</strong>
+    <div class="row">
+        <input id="summaryUserId" placeholder="User ID para summary" style="width:120px" />
+        <button id="getSummaryBtn">Buscar Summary</button>
+    </div>
+    <div id="summaryResult" style="margin-top:8px"></div>
+</div>
+
+<script src="/users.js" defer></script>
+</body>
+</html>
