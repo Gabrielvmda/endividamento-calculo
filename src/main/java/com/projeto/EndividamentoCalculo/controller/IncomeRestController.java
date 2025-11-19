@@ -17,35 +17,35 @@ public class IncomeRestController {
     @Autowired
     private IncomeRepository incomeRepository;
 
-    // GET ALL
+    // Todos
     @GetMapping("")
     public ResponseEntity<List<Income>> listAll() {
         List<Income> list = incomeRepository.findAll();
         return ResponseEntity.ok(list);
     }
 
-    // GET BY ID
+    // Por id
     @GetMapping("/{id}")
     public ResponseEntity<Income> getById(@PathVariable Long id) {
         Optional<Income> opt = incomeRepository.findById(id);
         return opt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // GET BY USER
+    // Por usuario
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Income>> getByUser(@PathVariable Long userId) {
         List<Income> list = incomeRepository.findByUserId(userId);
         return ResponseEntity.ok(list);
     }
 
-    // CREATE
+    // Criar
     @PostMapping("")
     public ResponseEntity<Income> create(@RequestBody Income in) {
         Income saved = incomeRepository.save(in);
         return ResponseEntity.created(URI.create("/api/incomes/" + saved.getId())).body(saved);
     }
 
-    // UPDATE
+    // Atualizar
     @PutMapping("/{id}")
     public ResponseEntity<Income> update(@PathVariable Long id, @RequestBody Income in) {
         Optional<Income> opt = incomeRepository.findById(id);
@@ -58,7 +58,7 @@ public class IncomeRestController {
         return ResponseEntity.ok(e);
     }
 
-    // DELETE
+    // Deletar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!incomeRepository.existsById(id)) return ResponseEntity.notFound().build();

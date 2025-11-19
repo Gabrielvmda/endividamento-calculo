@@ -17,34 +17,34 @@ public class ExpenseRestController {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-    // GET ALL
+    // Todos
     @GetMapping("")
     public ResponseEntity<List<Expense>> listAll() {
         return ResponseEntity.ok(expenseRepository.findAll());
     }
 
-    // GET BY ID
+    // Por id
     @GetMapping("/{id}")
     public ResponseEntity<Expense> getById(@PathVariable Long id) {
         Optional<Expense> opt = expenseRepository.findById(id);
         return opt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // GET BY USER
+    // Por usuario
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Expense>> getByUser(@PathVariable Long userId) {
         List<Expense> list = expenseRepository.findByUserId(userId);
         return ResponseEntity.ok(list);
     }
 
-    // CREATE
+    // Criar
     @PostMapping("")
     public ResponseEntity<Expense> create(@RequestBody Expense exp) {
         Expense saved = expenseRepository.save(exp);
         return ResponseEntity.created(URI.create("/api/expenses/" + saved.getId())).body(saved);
     }
 
-    // UPDATE
+    // Atualizar
     @PutMapping("/{id}")
     public ResponseEntity<Expense> update(@PathVariable Long id, @RequestBody Expense in) {
         if (!expenseRepository.existsById(id)) {
@@ -56,7 +56,7 @@ public class ExpenseRestController {
         return ResponseEntity.ok(saved);
     }
 
-    // DELETE
+    // Deletar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!expenseRepository.existsById(id)) return ResponseEntity.notFound().build();

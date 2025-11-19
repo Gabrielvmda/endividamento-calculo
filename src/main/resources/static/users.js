@@ -1,4 +1,3 @@
-// users.js - versão final completa
 (function(){
   'use strict';
 
@@ -29,7 +28,7 @@
     let expenses = [];
     let debts = [];
 
-    // === Helpers ===
+
     async function fetchJson(url, opts) {
       const r = await fetch(url, Object.assign({headers:{'Content-Type':'application/json'}}, opts));
       if (!r.ok) {
@@ -45,7 +44,7 @@
       return isNaN(n) ? null : n;
     }
 
-    // === API ===
+
     async function loadUsers() {
       const users = await fetchJson(`${base}/users`);
       tb.innerHTML = '';
@@ -86,7 +85,7 @@
       summaryResult.innerHTML = `<pre>${JSON.stringify(data,null,2)}</pre>`;
     }
 
-    // === Render Lists ===
+
     function renderIncomes() {
       incomesContainer.innerHTML = '';
       incomes.forEach((inc, idx) => {
@@ -129,16 +128,16 @@
       });
     }
 
-    // === Add new blank entries ===
+
     addIncomeBtn.onclick = () => { incomes.push({}); renderIncomes(); };
     addExpenseBtn.onclick = () => { expenses.push({}); renderExpenses(); };
     addDebtBtn.onclick = () => { debts.push({}); renderDebts(); };
 
-    // === Delegated remove + table actions ===
+    // Remover usuarios
     document.body.addEventListener('click', async (ev) => {
       const t = ev.target;
 
-      // Remover income
+
       if (t.classList.contains('remove-inc')) {
         const i = +t.dataset.idx;
         if (incomes[i].id) await deleteIncome(incomes[i].id);
@@ -146,7 +145,7 @@
         return renderIncomes();
       }
 
-      // Remover expense
+
       if (t.classList.contains('remove-exp')) {
         const i = +t.dataset.idx;
         if (expenses[i].id) await deleteExpense(expenses[i].id);
@@ -154,7 +153,7 @@
         return renderExpenses();
       }
 
-      // Remover debt
+
       if (t.classList.contains('remove-debt')) {
         const i = +t.dataset.idx;
         if (debts[i].id) await deleteDebt(debts[i].id);
@@ -162,7 +161,7 @@
         return renderDebts();
       }
 
-      // === Table actions ===
+
       if (t.classList.contains('edit')) {
         const id = t.dataset.id;
         editingId = id;
@@ -196,7 +195,7 @@
       }
     });
 
-    // === Handle input updating arrays ===
+
     document.body.addEventListener('input', (ev) => {
       const t = ev.target;
       const idx = t.dataset.idx;
@@ -216,7 +215,7 @@
       if (t.classList.contains('debt-min')) debts[i].minimumInstallment = parseNumber(t.value);
     });
 
-    // === SAVE ===
+    // Salvar criação
     saveBtn.onclick = async () => {
       const payload = {
         name: nameInput.value.trim(),
@@ -229,12 +228,12 @@
         return;
       }
 
-      // === EDITANDO ===
+      // Edição de usuario
       if (editingId) {
 
         await updateUser(editingId, Object.assign({ id: editingId }, payload));
 
-        // --- incomes ---
+
         for (const inc of incomes){
           if (inc.id){
             await updateIncome(inc.id, {...inc, user:{id: editingId}});
@@ -244,7 +243,7 @@
           }
         }
 
-        // --- expenses ---
+
         for (const exp of expenses){
           if (exp.id){
             await updateExpense(exp.id, {...exp, user:{id: editingId}});
@@ -254,7 +253,7 @@
           }
         }
 
-        // --- debts ---
+
         for (const d of debts){
           if (d.id){
             await updateDebt(d.id, {...d, user:{id: editingId}});
@@ -266,7 +265,7 @@
 
       } else {
 
-        // === CRIAR NOVO USER ===
+       //Criação de novo user
         const saved = await createUser(payload);
         const userId = saved.id;
 
@@ -303,7 +302,7 @@
       renderDebts();
     }
 
-    // === Summary button (input) handler ===
+
     if (getSummaryBtn && summaryUserId) {
       getSummaryBtn.addEventListener('click', () => {
         const id = summaryUserId.value.trim();
@@ -314,7 +313,7 @@
         });
       });
 
-      // permitir Enter no campo para buscar também
+
       summaryUserId.addEventListener('keydown', (ev) => {
         if (ev.key === 'Enter') {
           ev.preventDefault();

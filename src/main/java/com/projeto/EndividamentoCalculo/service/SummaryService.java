@@ -87,7 +87,7 @@ public class SummaryService {
 
         String classification = classifyDebtRatio(debtRatio);
 
-        // Gerar somente os planos FLEX
+        // Planos
         List<RepaymentPlanDto> plans = generateFlexiblePlans(debts);
 
         return new SummaryResponseDto(
@@ -111,9 +111,7 @@ public class SummaryService {
         return "ALTO";
     }
 
-    /**
-     * Gera planos FLEX (6, 12, 24 e 36 meses) usando taxa média ponderada das dívidas.
-     */
+    //criação dos planos
     private List<RepaymentPlanDto> generateFlexiblePlans(List<Debt> debts) {
         List<RepaymentPlanDto> flexiblePlans = new ArrayList<>();
 
@@ -159,9 +157,7 @@ public class SummaryService {
         return flexiblePlans;
     }
 
-    /**
-     * Fórmula de amortização para calcular prestação fixa.
-     */
+    //Formula para armotizar juros
     private BigDecimal calculateMonthlyPayment(BigDecimal principal, BigDecimal annualRate, int months) {
         if (principal == null || principal.compareTo(BigDecimal.ZERO) <= 0 || months <= 0) {
             return BigDecimal.ZERO;

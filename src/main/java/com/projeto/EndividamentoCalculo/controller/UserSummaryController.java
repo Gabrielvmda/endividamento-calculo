@@ -17,7 +17,6 @@ public class UserSummaryController {
         this.summaryService = summaryService;
     }
 
-    // GET /api/users/{id}/summary
     @GetMapping("/{id}/summary")
     public ResponseEntity<SummaryResponseDto> getUserSummary(@PathVariable Long id) {
         SummaryResponseDto summary = summaryService.generateSummaryForUser(id);

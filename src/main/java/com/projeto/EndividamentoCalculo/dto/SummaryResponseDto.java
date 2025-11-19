@@ -16,7 +16,7 @@ public class SummaryResponseDto {
     private BigDecimal totalExpenses;
     private BigDecimal totalDebt;
     private BigDecimal monthlyInstallmentsSum;
-    private BigDecimal debtRatio; // monthlyInstallmentsSum / totalIncome
+    private BigDecimal debtRatio;
     private String classification; // BAIXO / MEDIO / ALTO
     private List<RepaymentPlanDto> suggestedPlans;
 }

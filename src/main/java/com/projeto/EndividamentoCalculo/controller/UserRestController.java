@@ -33,7 +33,6 @@ public class UserRestController {
     // Criar novo usuário (ID auto gerado)
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
-        // não aceitar id enviado (opcional: ignorar se presente)
         user.setId(null);
         User saved = userRepository.save(user);
         return ResponseEntity.created(URI.create("/api/users/" + saved.getId())).body(saved);

@@ -14,7 +14,7 @@ public class SummaryRestController {
     @Autowired
     private SummaryService summaryService;
 
-    // GET /api/summary/user/{userId}
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<SummaryResponseDto> getSummary(@PathVariable Long userId) {
         try {
@@ -24,10 +24,8 @@ public class SummaryRestController {
             }
             return ResponseEntity.ok(dto);
         } catch (NoSuchElementException ex) {
-            // User not found in service
             return ResponseEntity.notFound().build();
         } catch (Exception ex) {
-            // Log the error server-side (optional) and return 500
             ex.printStackTrace();
             return ResponseEntity.status(500).build();
         }
