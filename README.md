@@ -193,3 +193,4 @@ Funcionalidades do Front-End
 Autor
 
 Gabriel Almeida.
+Samuel Felix
